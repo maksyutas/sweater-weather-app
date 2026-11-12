@@ -1,4 +1,4 @@
 package use_case.sign_up;
 
-public class SignUpInputBoundary {
+public interface SignUpInputBoundary {
 }
