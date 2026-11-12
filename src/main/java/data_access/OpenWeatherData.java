@@ -21,11 +21,13 @@ public class OpenWeatherData {
      * Uses the Geocoding API to find a city's latitude and longitude, then calls
      * fetchWeather using its values.
      *
-     * @param zip_countryCode the zip and country code, separated by a comma (e.g. 1234,CA)
+     * @param zipCode the zip code of the city with no spaces (e.g. M5S1A1)
+     * @param countryCode the 2 letter standard country code of the city (e.g. CA)
      */
-    public void fetchCoordinates(String zip_countryCode) {
+    public void fetchCoordinates(String zipCode, String countryCode) {
+        final String cityInfo = zipCode + "," + countryCode;
         Request geoRequest = new Request.Builder()
-                .url(geocodeCall[0] + zip_countryCode + geocodeCall[1] + API_KEY)
+                .url(geocodeCall[0] + cityInfo + geocodeCall[1] + API_KEY)
                 .build();
         try (Response geoResponse = client.newCall(geoRequest).execute()) {
             if (geoResponse.isSuccessful()) {
@@ -74,6 +76,7 @@ public class OpenWeatherData {
 
                 JSONObject temperature = city.getJSONObject("main");
                 double cityTemperature = temperature.getDouble("temp");
+                System.out.println(cityTemperature);
                 //WeatherData weatherData = new WeatherData(cityTemperature, cityCondition);
 
 
@@ -89,6 +92,6 @@ public class OpenWeatherData {
 
     public static void main(String[] args) {
         OpenWeatherData weather = new OpenWeatherData();
-        weather.fetchCoordinates("M1R3W3,CA");
+        weather.fetchCoordinates("M5S1A1", "CA");
     } //this is just for me to quick test
 }
