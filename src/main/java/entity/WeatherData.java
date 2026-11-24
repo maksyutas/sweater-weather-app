@@ -39,7 +39,7 @@ public class WeatherData {
     public List<Integer> getWarmthLevels() {
         return this.warmthLevels;
     }
-    public ArrayList<String> getConditions() {
+    public ArrayList<String> getAllConditions() {
         return this.conditions;
     }
 

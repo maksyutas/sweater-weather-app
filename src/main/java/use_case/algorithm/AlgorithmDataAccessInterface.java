@@ -1,7 +1,11 @@
 package use_case.algorithm;
 
-/**
- * TODO: SOFIAA
- */
+import entity.WeatherData;
+
 public interface AlgorithmDataAccessInterface {
+
+    public WeatherData getWeather(String zipCode, String countryCode);
+
+    public WeatherData fetchWeatherByCoordinates(double lat, double lon);
+
     }
