@@ -14,6 +14,12 @@ import java.awt.*;
 public class GenerateOutfitView {
 
     public void GeneratePage() {
+        Color lightPink = new Color(255, 228, 239);
+        Color darkPink = new Color(163, 52, 100);
+        Color darkGreen = new Color(184, 219, 128);
+        Color lightGreen = new Color(247, 246, 211);
+        Color darkestGreen = new Color(69, 82, 35);
+
         JPanel colorPanel = new JPanel();
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.Y_AXIS));
 
@@ -25,13 +31,15 @@ public class GenerateOutfitView {
         JComboBox<String> bottomDropdown = new JComboBox<>(bottomList);
         colorRow.add(topDropdown);
         colorRow.add(bottomDropdown);
+        colorRow.setBackground(lightGreen);
+
 
         colorLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         colorRow.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        colorPanel.add(Box.createVerticalStrut(100));
         colorPanel.add(colorLabel);
         colorPanel.add(Box.createVerticalStrut(10));
         colorPanel.add(colorRow);
+        colorPanel.setBackground(lightGreen);
 
         JPanel stylePanel = new JPanel();
         stylePanel.setLayout(new BoxLayout(stylePanel, BoxLayout.Y_AXIS));
@@ -50,16 +58,18 @@ public class GenerateOutfitView {
         stylePanel.add(styleLabel);
         stylePanel.add(Box.createVerticalStrut(10));
         stylePanel.add(styleDropdown);
-
+        stylePanel.setBackground(lightGreen);
 
         JPanel layeredPanel = new JPanel();
         layeredPanel.setLayout(new BoxLayout(layeredPanel, BoxLayout.Y_AXIS));
         JLabel layeredLabel = new JLabel("Do you want a layered outfit?");
         JPanel layeredRow =  new JPanel(new java.awt.FlowLayout(
-                java.awt.FlowLayout.CENTER, -2, 5));
+                java.awt.FlowLayout.CENTER, -3, 5));
         JToggleButton yes = new JToggleButton("Yes");
         JToggleButton no = new JToggleButton("No");
         JToggleButton chooseForMe = new JToggleButton("Choose for me ;p");
+        layeredRow.setBackground(lightGreen);
+
 
         ButtonGroup group = new ButtonGroup();
         for (JToggleButton button : new JToggleButton[]{yes, no, chooseForMe}) {
@@ -69,7 +79,7 @@ public class GenerateOutfitView {
             java.awt.Color defaultColor = button.getForeground();
             button.addItemListener(event -> {
                 if (button.isSelected()) {
-                    button.setForeground(Color.MAGENTA);
+                    button.setForeground(darkPink);
                 } else {
                     button.setForeground(defaultColor);
                 }
@@ -82,6 +92,60 @@ public class GenerateOutfitView {
         layeredPanel.add(layeredLabel);
         layeredPanel.add(Box.createVerticalStrut(10));
         layeredPanel.add(layeredRow);
+        layeredPanel.setBackground(lightGreen);
+
+        JPanel submitPanel = new JPanel();
+        submitPanel.setLayout(new BoxLayout(submitPanel, BoxLayout.Y_AXIS));
+        JButton submitButton = new JButton("Work the magic !!!");
+        submitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        java.awt.Dimension submitSize = new java.awt.Dimension(294, 30);
+        submitButton.setPreferredSize(submitSize);
+        submitButton.setMaximumSize(submitSize);
+
+//        submitButton.addActionListener(event -> {
+//            submitButton.setForeground(new Color(75, 0, 130));
+//        }); don't need this because once pressed color is not observed
+
+        submitPanel.add(Box.createVerticalStrut(90));
+        submitPanel.add(submitButton);
+        submitPanel.setBackground(lightPink);
+
+        JPanel directoryPanel = new JPanel();
+        directoryPanel.setLayout(new BoxLayout(directoryPanel ,BoxLayout.X_AXIS));
+        JButton homeButton = new JButton("Home Page");
+        JButton closetButton = new JButton("Go to My Closet");
+
+        Dimension buttonSize = new Dimension(140, 30);
+        homeButton.setPreferredSize(buttonSize);
+        homeButton.setMaximumSize(buttonSize);
+        closetButton.setPreferredSize(buttonSize);
+        closetButton.setMaximumSize(buttonSize);
+
+        homeButton.setForeground(darkestGreen);
+        closetButton.setForeground(darkestGreen);
+        submitButton.setForeground(darkPink);
+        submitButton.setForeground(darkPink);
+        topDropdown.setForeground(darkPink);
+        bottomDropdown.setForeground(darkPink);
+        yes.setForeground(darkPink);
+        no.setForeground(darkPink);
+        chooseForMe.setForeground(darkPink);
+        styleDropdown.setForeground(darkPink);
+        colorLabel.setForeground(darkestGreen);
+        styleLabel.setForeground(darkestGreen);
+        layeredLabel.setForeground(darkestGreen);
+
+
+        homeButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        closetButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        directoryPanel.add(Box.createVerticalStrut(460));
+        directoryPanel.add(Box.createHorizontalGlue());
+        directoryPanel.add(homeButton);
+        directoryPanel.add(Box.createRigidArea(new Dimension(145, 0)));
+        directoryPanel.add(closetButton);
+        directoryPanel.add(Box.createHorizontalGlue());
+        directoryPanel.setBackground(lightPink);
+
 
         colorPanel.setMaximumSize(new java.awt.Dimension(
                 Integer.MAX_VALUE, colorPanel.getPreferredSize().height));
@@ -89,14 +153,36 @@ public class GenerateOutfitView {
                 Integer.MAX_VALUE, stylePanel.getPreferredSize().height));
         layeredPanel.setMaximumSize(new java.awt.Dimension(
                 Integer.MAX_VALUE, layeredPanel.getPreferredSize().height));
+        submitPanel.setMaximumSize(new java.awt.Dimension(
+                Integer.MAX_VALUE, submitPanel.getPreferredSize().height));
+        directoryPanel.setMaximumSize(new java.awt.Dimension(
+                Integer.MAX_VALUE, directoryPanel.getPreferredSize().height));
+
+        JPanel questionnairePanel = new JPanel();
+        questionnairePanel.setLayout(new BoxLayout(questionnairePanel, BoxLayout.Y_AXIS));
+        Dimension questionnaireSize = new Dimension(400, 400);
+        questionnairePanel.setPreferredSize(questionnaireSize);
+        questionnairePanel.setMaximumSize(questionnaireSize);
+
+        questionnairePanel.add(Box.createVerticalStrut(20));
+        questionnairePanel.add(colorPanel);
+        questionnairePanel.add(stylePanel);
+        questionnairePanel.add(layeredPanel);
+        questionnairePanel.add(Box.createVerticalStrut(20));
+        questionnairePanel.setBackground(lightGreen);
+        questionnairePanel.setBorder(BorderFactory.createLineBorder(darkGreen, 4, true));
+
+
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.add(colorPanel);
-        mainPanel.add(stylePanel);
-        mainPanel.add(layeredPanel);
+        mainPanel.add(Box.createVerticalStrut(140));
+        mainPanel.add(questionnairePanel);
+        mainPanel.add(submitPanel);
+        mainPanel.add(directoryPanel);
+        mainPanel.setBackground(lightPink);
 
-        JFrame frame = new JFrame("Outfit Questionnaire Page");
+        JFrame frame = new JFrame("Sweater Weather");
         frame.setMinimumSize(new java.awt.Dimension(457, 813));
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
