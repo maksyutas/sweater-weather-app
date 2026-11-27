@@ -3,6 +3,7 @@ package view;
 import interface_adapter.add_clothing.AddClothingController;
 import interface_adapter.add_clothing.AddClothingState;
 import interface_adapter.add_clothing.AddClothingViewModel;
+import interface_adapter.generate_outfit.GenerateOutfitController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,6 +18,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -46,6 +48,7 @@ public class AddClothingView extends JPanel implements PropertyChangeListener {
 
     private final AddClothingViewModel viewModel;
     private AddClothingController controller;
+    private GenerateOutfitController outfitController;
 
     private final JTextField nameField = new JTextField(18);
     private final JComboBox<String> categoryBox = new JComboBox<>();
@@ -89,6 +92,7 @@ public class AddClothingView extends JPanel implements PropertyChangeListener {
     public void setAddClothingController(AddClothingController controller) {
         this.controller = controller;
     }
+    public void setOutfitController(GenerateOutfitController controller) { this.outfitController = controller;}
 
     public String getViewName() {
         return viewModel.getViewName();
@@ -232,16 +236,25 @@ public class AddClothingView extends JPanel implements PropertyChangeListener {
 
     private void hookUpButtons() {
         choosePictureButton.addActionListener(e -> choosePicture());
-        saveButton.addActionListener(e -> controller.execute(
-                nameField.getText(),
-                (String) categoryBox.getSelectedItem(),
-                (String) subCategoryBox.getSelectedItem(),
-                (String) colorBox.getSelectedItem(),
-                (String) styleBox.getSelectedItem(),
-                layerYes.isSelected(),
-                weatherSlider.getLow(),
-                weatherSlider.getHigh(),
-                chosenImagePath));
+        saveButton.addActionListener(e -> {
+            controller.execute(
+                    nameField.getText(),
+                    (String) categoryBox.getSelectedItem(),
+                    (String) subCategoryBox.getSelectedItem(),
+                    (String) colorBox.getSelectedItem(),
+                    (String) styleBox.getSelectedItem(),
+                    layerYes.isSelected(),
+                    weatherSlider.getLow(),
+                    weatherSlider.getHigh(),
+                    chosenImagePath);
+
+            if (Objects.equals(categoryBox.getSelectedItem(), "Top")) {
+                outfitController.addTopColor((String) colorBox.getSelectedItem());
+            } else if (Objects.equals(categoryBox.getSelectedItem(), "Bottom")) {
+                outfitController.addBottomColor((String) colorBox.getSelectedItem());
+            }
+            outfitController.addStyle((String) styleBox.getSelectedItem());
+        });
         cancelButton.addActionListener(e -> controller.switchToWelcomeView());
         homeButton.addActionListener(e -> controller.switchToWelcomeView());
     }

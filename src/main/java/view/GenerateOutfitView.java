@@ -31,10 +31,16 @@ public class GenerateOutfitView {
         colorPanel.setLayout(new BoxLayout(colorPanel, BoxLayout.Y_AXIS));
         JLabel colorLabel = new JLabel("Which color are you feeling today?");
         JPanel colorRow = new JPanel();
-        String[] topList = {"Choose top!", "red", "yellow", "blue"};
-        String [] bottomList = {"Choose bottom!", "denim", "black", "brown"};
-        JComboBox<String> topDropdown = new JComboBox<>(topList);
-        JComboBox<String> bottomDropdown = new JComboBox<>(bottomList);
+        JComboBox<String> topDropdown = new JComboBox<>();
+        topDropdown.addItem("Choose Top!");
+        for (String color : controller.availableTops) {
+            topDropdown.addItem(color);
+        }
+        JComboBox<String> bottomDropdown = new JComboBox<>();
+        bottomDropdown.addItem("Choose Top!");
+        for (String color : controller.availableBottoms) {
+            bottomDropdown.addItem(color);
+        }
         colorRow.add(topDropdown);
         colorRow.add(bottomDropdown);
         colorRow.setBackground(lightGreen);
@@ -48,8 +54,11 @@ public class GenerateOutfitView {
         JPanel stylePanel = new JPanel();
         stylePanel.setLayout(new BoxLayout(stylePanel, BoxLayout.Y_AXIS));
         JLabel styleLabel = new JLabel("Which style do you prefer to wear today?");
-        String[] styleList = {"Choose!", "Grunge", "Coquette", "Streetwear"};
-        JComboBox<String> styleDropdown = new JComboBox<>(styleList);
+        JComboBox<String> styleDropdown = new JComboBox<>();
+        styleDropdown.addItem("Choose Top!");
+        for (String color : controller.availableStyles) {
+            styleDropdown.addItem(color);
+        }
         styleLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         styleDropdown.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         java.awt.Dimension dropdownSize = new java.awt.Dimension(294, 30);
@@ -158,7 +167,7 @@ public class GenerateOutfitView {
                 } else {
                     layered = "either";
                 }
-                controller.setOutfitPreference(top, bottom, style, layered);
+                controller.execute(top, bottom, style, layered);
             }
         });
 
@@ -205,8 +214,19 @@ public class GenerateOutfitView {
     }
 
     public static void main(String[] args) {
-        GenerateOutfitView tryThis = new GenerateOutfitView();
-        tryThis.GeneratePage();
+        GenerateOutfitController controller = new GenerateOutfitController();
+        controller.addBottomColor("red");
+        controller.addBottomColor("denim");
+        controller.addBottomColor("black");
+        controller.addTopColor("blue");
+        controller.addTopColor("white");
+        controller.addTopColor("beige");
+        controller.addStyle("grunge");
+        controller.addStyle("coquette");
+        controller.addStyle("streetwear");
+        GenerateOutfitView viewpage = new GenerateOutfitView();
+        viewpage.setController(controller);
+        viewpage.GeneratePage();
 
     }
 }
