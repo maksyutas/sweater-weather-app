@@ -89,13 +89,13 @@ public class OpenWeatherData implements AlgorithmDataAccessInterface {
         } return null;
     }
 
-    public static void main(String[] args) {
-        OpenWeatherData weather = new OpenWeatherData();
-        WeatherData today = weather.getWeather("M5S1A1", "CA");
-        System.out.println(today.getCondition());
-        System.out.println(today.getTemperature());
-        System.out.println(today.getWarmthLevels());
-        System.out.println(today.getAllConditions());
-
-    } //this is just for me to quick test
+//    public static void main(String[] args) {
+//        OpenWeatherData weather = new OpenWeatherData();
+//        WeatherData today = weather.fetchCoordinates("M5S1A1", "CA");
+//        System.out.println(today.getCondition());
+//        System.out.println(today.getTemperature());
+//        System.out.println(today.getWarmthLevels());
+//        System.out.println(today.getConditions());
+//
+//    } this is just for me to quick test; uncomment if u want to check weather ;p
 }
